@@ -1,0 +1,8 @@
+<div class="container">
+    <ul>
+        <li [class.active]="linkQuery == 'home' || ''" routerLink="/" (click)="updateQuery('home')" [queryParams]="{navQuery: 'home'}">Home</li>
+        <li [class.active]="linkQuery == 'about'" routerLink="/" [queryParams]="{navQuery: 'about'}" (click)="updateQuery('about')">About Us</li>
+        <li [class.active]="linkQuery == 'contact'"routerLink="/" [queryParams]="{navQuery: 'contact'}" (click)="updateQuery('contact')">Contact</li>
+        <li [class.active]="linkQuery == 'login'" routerLink="/" [queryParams]="{navQuery: 'login'}" (click)="updateQuery('login')">Login</li>
+    </ul>
+</div>
