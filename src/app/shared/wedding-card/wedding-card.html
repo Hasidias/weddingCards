@@ -1,1 +1,18 @@
-<p>wedding-card works!</p>
+<div class="container">
+    <div class="wrapping">
+        <div class="_card"> 
+            <div class="cardImg"><img [src]="cardData.imgURL" alt=""></div>
+            <div class="cardContent">
+                <div class="name">{{cardData.name}}</div>
+                <div class="availability">{{cardData.availability? 'Available' : 'Not Available'}}</div>
+                <div class="_row">
+                    <!-- <div class="price">{{cardData.price}} LKR</div> -->
+                    <div class="btnContainer">
+                        <button class="_btn btn-view" [routerLink]="['/weddingCard']" [state]="{cardData:cardData}">View Info</button>
+                        <button class="_btn btn-add-to-cart">Add to cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

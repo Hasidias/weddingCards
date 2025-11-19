@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="modal">
+        <div class="_btnContainer">
+            <button class="_btn" (click)="close()">X</button>
+        </div>
+        @for (promo of promotions; track $index ) {
+            <!-- promotions -->
+                <div class="ribbon_card">
+                    <span></span>
+                    <div class="content regularFont">            
+                    <p class="promotionName">{{promo.name}} Promotion</p>
+                    <p class="promotionDescription">{{promo.description}}</p>
+                    </div>
+                </div>
+        }
+    </div>
+</div>
+

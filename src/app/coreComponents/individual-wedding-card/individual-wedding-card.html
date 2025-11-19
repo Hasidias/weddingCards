@@ -1,1 +1,188 @@
-<p>individual-wedding-card works!</p>
+<ng-template #promoModal></ng-template>
+<div class="container">
+    <div class="carousel">
+        <div class="thumbanails" id="thumbnails">
+            @if (cardData) {
+                <div class="arrowContainer" id="upArrow" (click)="scroll('up')">
+                    <i class="bi bi-caret-up-fill"></i>
+                </div>
+                <div class="wrapper" #scrollContainer>
+                        @for (image of images; track images.indexOf(image); let i = $index) {
+                            <div class="thumbnail" id="_thum{{i}}" (click)="changePreviewImage(image, i)" [class]="i == 0 ? 'activeImg':''">
+                                <img [src]="image" alt="">
+                            </div>
+                        }
+                </div>
+                <div class="arrowContainer" id="downArrow" (click)="scroll('down')">
+                    <i class="bi bi-caret-down-fill"></i>
+                </div>
+            }
+        </div>
+        @if (cardData) {
+            <div class="viewImage">
+            <img [src]="previewImage" alt="">
+            </div>
+        } 
+    </div>
+    <div class="details">
+        @if (cardData) {
+            <div class="title">
+                <p>{{cardData.name }}</p>
+                <p class="optionTItle">Select Paper Type</p>
+                <div class="_btnContainer">
+                    @for (paper of cardData.paperTypes; track cardData.paperTypes.indexOf(paper);) {
+                        <button class="_btn" (click)="updatePaperType(paper)" [class]="paper == selecteOptions.paperType ? 'btnSelected' : ''">{{paper}}</button>     
+                    }
+                </div>
+            </div>
+            <p class="optionTItle">Select Color</p>
+            <div class="varianceContainer">
+                <div class="variances">
+                @for (variance of cardData.variances; track cardData.variances.indexOf(variance); let j = $index) {
+                    <div class="varianceItem" (click)="updateVarianceIndex(cardData.variances.indexOf(variance)); updateColor(variance.color)" [class.selectedVariance]="selectedVarianceIndex == cardData.variances.indexOf(variance)">
+                        <div class="namewithCheck">
+                            <div class="checkWrapper">
+                                @if (selectedVarianceIndex == cardData.variances.indexOf(variance)) {
+                                    <div class="check">
+                                        <img src="check.png" class="tik" alt="loading...">
+                                    </div>
+                                }  @else {
+                                    <div class="check emptyCheck"></div>
+                                }    
+                            </div>
+                        </div>                      
+                        <div class="group">
+                            <div class="color">
+                                <div class="variancecolor">
+                                    <div class="colorContainer" [ngStyle]="{ 'background-color': variance.colorHexcode}"></div>
+                                </div>
+                                <span class="intend">{{variance.color}}</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+            <!-- --------------------------------------------------------wedding card quantity -->
+            <div class="weddingCardsQuantity">
+                <label for="weddingCardQuantity" class="priceLabelColor">
+                    Wedding Cards Quantity:
+                    <input type="number" name="weddingCardQuantity" id="weddingCardsQuantity" min="1" max="1000" value="1" [(ngModel)]="order.weddingCardQuantity" (change)="updatePrice()">
+                </label>
+            </div>
+<!-- ---------------------------------------------------------gift box -->
+            <div class="giftboxContainer">
+                <p class="optionTItle">Add Gift Boxes</p>
+                <div class="_btnContainer">
+                    <button class="_btn" [class]="giftBox? 'btnSelected':''" (click)="updateGiftBoxRequirement(true)"> Add</button>
+                    <button class="_btn" [class]="giftBox? '':'btnSelected'" (click)="updateGiftBoxRequirement(false)"> No</button>
+                </div>
+                @if (giftBox && selecteOptions.color !== '') {
+                    <div class="GBMatrics">
+                        <div class="GBDesigns">
+                            <div class="optionTItle">
+                                Gift Box Design
+                            </div>
+                            <div class="_row">
+                                @for (giftBox of cardData.variances[selectedVarianceIndex].giftBoxM; track cardData.variances[selectedVarianceIndex].giftBoxM.indexOf(giftBox); let k = $index) {
+                                    <div class="_btnContainer">
+                                        <button class="_btn" [class]="selectedGiftBoxDesignIndex == $index? 'btnSelected':''" (click)="updateGiftBoxIndex($index); updatePrice()">{{giftBox.designName}}</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="GBPaper">
+                            <div class="optionTItle">
+                                Paper Type
+                            </div>
+                            <div class="_row">
+                                @for (pricingItem of cardData.variances[selectedVarianceIndex].giftBoxM[selectedGiftBoxDesignIndex].pricing; track cardData.variances[selectedVarianceIndex].giftBoxM[selectedGiftBoxDesignIndex].pricing.indexOf(pricingItem); let m = $index) {
+                                    <div class="_btnContainer">
+                                        <button class="_btn" [class]="selectedGiftBoxMPricingIndex == $index? 'btnSelected':''" (click)="updateGiftBoxMIndex($index); updatePrice()">{{pricingItem.paperType}}</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="optionTItle">
+                            Gift Box Size
+                        </div>
+                        <div class="_row">
+                            <div class="_btnContainer" (click)="updateGBSelection(true)">    
+                                <button class="_btn" [class]="standardGiftBoxSelected? 'btnSelected':''">Standard</button>
+                            </div>
+                             <div class="_btnContainer" (click)="updateGBSelection(false)">    
+                                <button class="_btn" [class]="!standardGiftBoxSelected? 'btnSelected':''">Customize</button>
+                            </div>
+                        </div>
+                        <div class="dimensionView">
+                            @if (giftBox && !standardGiftBoxSelected) {
+                                <div class="dimensionsForm">
+                                    <label for="length" class="labelText">
+                                        Length:
+                                        <input type="number" name="length" id="length" min="1" max="100" [(ngModel)]="customizedBoxDimenstions.length" placeholder="inches">
+                                        in.
+                                    </label>
+                                    <label for="width" class="labelText">
+                                        Width:
+                                        <input type="number" name="width" id="width" min="1" max="100" [(ngModel)]="customizedBoxDimenstions.width" placeholder="inches">
+                                        in.
+                                    </label>
+                                    <label for="height" class="labelText">
+                                        Height:
+                                        <input type="number" name="height" id="height" min="1" max="100" [(ngModel)]="customizedBoxDimenstions.height" placeholder="inches">
+                                        in.
+                                    </label>
+                                </div>
+                            } @else if (giftBox && standardGiftBoxSelected) {
+                                <div class="dimensionsHardCorded">
+                                    <p>Length: {{cardData.variances[selectedVarianceIndex].giftBoxM[selectedGiftBoxDesignIndex].size.length}} in.</p>
+                                    <p>Width: {{cardData.variances[selectedVarianceIndex].giftBoxM[selectedGiftBoxDesignIndex].size.width}} in.</p>
+                                    <p>Height: {{cardData.variances[selectedVarianceIndex].giftBoxM[selectedGiftBoxDesignIndex].size.height}} in.</p>
+                                </div>
+                            }
+                        </div>
+                        <hr>
+                        <div class="GBQuantity">
+                            <label for="giftBoxQuantity" class="priceLabelColor">
+                                Gift Box Quantity:
+                                <input type="number" name="giftBoxQuantity" id="giftBoxQuantity" min="1" max="1000" value="1" [(ngModel)]="order.giftBoxQuantity" (change)="updatePrice()">
+                            </label>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- promotions -->
+             <div class="_btn-promo-Container">
+                <button class="_btn _btn-promo" (click)="showPromotionsModal()"><i class="bi bi-gift-fill"></i>Promotions</button>
+             </div>
+            @if (eligiblePromotion.type !== '') {
+                <div class="ribbon_card">
+                    <span></span>
+                    <div class="content regularFont">
+                        <p>🎉🎉🎉 Offer for the current values 🎉🎉🎉</p>
+                        <p>For {{eligiblePromotion.type == 'value_based'? 'Total Value':'Quantity'}}</p>
+                        <p>Discount {{eligiblePromotion.discount}} %</p>
+                    </div>
+                </div>
+            }
+            <div class="priceSection">
+                <p class="priceLabel">Price:</p>
+                @if (price > 0) {
+                <p class="priceValue" [class]="TotalAfterPromotions > 0 ? 'cutPrice': ''">{{price | currency:'LKR ': 'symbol'}}</p>
+                @if (TotalAfterPromotions > 0 ){
+                    <p class="promoText">You saved {{(price - TotalAfterPromotions)|currency:'LKR ': 'symbol'}}</p>
+                    <p class="promotionPrice">{{TotalAfterPromotions | currency:'LKR ': 'symbol'}}</p>
+                }
+                } @else {
+                <p class="priceValue">:-.../</p>
+                }
+            </div>
+            <!-- submission Buttons -->
+            <div class="submissionContainer">
+                <button class="AddToCart _btn">Add to Cart</button>
+                <button class="Customized _btn">Customized Request</button>
+                <button class="order _btn" (click)="orderNow()">Order Now</button>
+            </div>
+        }
+    </div>
+</div>

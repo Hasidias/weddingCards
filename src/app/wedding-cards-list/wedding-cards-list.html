@@ -1,1 +1,7 @@
-<p>wedding-cards-list works!</p>
+@if (cards.length > 0) {
+    <div class="container"> 
+        @for (card of cards; track card.id) {
+        <app-wedding-card [cardData]="card"></app-wedding-card>
+        }
+    </div>
+}

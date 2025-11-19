@@ -1,0 +1,461 @@
+.container{
+    padding: 10px;
+    display: flex;
+}
+
+.carousel{
+    display:flex;
+}
+
+.thumbanails {
+    text-align: center;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnail img{
+    cursor: pointer;
+}
+
+.arrowContainer{
+    width: 70px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.104);
+    cursor: pointer;
+    transition: all 0.4s ;
+}
+
+#upArrow{
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-bottom: 2px;
+}
+
+.arrowContainer:active .bi-caret-down-fill, .arrowContainer:active .bi-caret-up-fill{
+    // color: rgba(100, 148, 237, 0.738);
+    transform: scale(0.95);
+}
+
+.arrowContainer:active{
+    background-color: rgba(0, 0, 0, 0.175);
+}
+
+#downArrow{
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    margin-top: 2px;
+}
+
+.wrapper{
+    text-align: center;
+    height: 100px;
+    overflow: scroll;
+    width: 120px;;
+}
+
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
+img{
+    width: 70px;
+    // width: 20px;
+    aspect-ratio: 16/9;
+}
+
+.bi-caret-up-fill, .bi-caret-down-fill{
+    height: 50px;
+    width: 50px;
+    color: rgba(0, 0, 0, 0.373);
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// view image styles
+
+.viewImage img {
+    aspect-ratio: 16/9;
+    width: 750px;
+}
+
+.activeImg img{
+    box-shadow: 0px 0px 5px 2px cornflowerblue;
+}
+
+// details and selection side 
+.details{
+    margin-left: 10px;
+    width: 100%;
+}
+
+.title{
+    font-weight: bold;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.775);
+    margin-bottom: 10px;
+}
+
+// varience list styles
+.varicanceContainer{
+    padding-top: 100px;
+}
+.variances{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    align-content: start;
+}
+
+.varianceTitle{
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 1);
+}
+
+.varianceItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    border-radius: 3px;
+    padding: 5px 0px;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    width: 170px;
+    cursor: pointer;
+}
+
+.color{
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.variancecolor{
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    border: 1px solid rgba(0, 0, 0, 1);
+    // padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+.colorContainer{
+    border-radius: 5px;
+    height: 20px;
+    width: 20px;
+    margin: 0;
+}
+
+.intend {
+    padding-left: 10px;
+}
+
+.propName {
+    font-weight: bold;
+}
+
+.namewithCheck{
+    display: flex;
+    flex-direction: column;
+}
+
+.tik{
+    height: 16px;
+    width: 16px;
+}
+
+.checkWrapper {
+    position: relative;
+
+}
+
+.check {
+    height: 23px;
+    width: 23px;
+    border: 3px solid cornflowerblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: absolute;
+    right: 3px;
+}
+
+.paperTypes{
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.paperTypes button{
+    width: 70px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+._btnContainer {
+    display: flex;
+    width: fit-content;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+._btn {
+    outline: none;
+    font-size: 0.8em;
+    font-weight: bold;
+    transition: all 0.2s ;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 1px solid cornflowerblue;
+    color: black;
+    background-color: white;
+}
+
+._btn:active {
+    transform: translateY(1px);
+}
+
+.optionTItle{
+    font-weight: bold;
+    font-size: 1em;
+    color: rgba(0, 0, 0, 0.775);
+    margin-top: 10px;
+}
+
+.btnSelected{
+    background-color: cornflowerblue;
+    color: white;
+}
+
+// eding dimensions styles
+
+.GBMatrics {
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    width: fit-content;
+}
+
+._row {
+    display: flex;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.shadowBox {
+    height: 35px;
+    width: 140px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.4s ;
+    border-radius: 3px;
+    margin-right: 2rem;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shadowBox:active {
+    transform: translateY(1px);
+}
+
+.dimensionsForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.dimensionsForm label {
+    margin-bottom: 10px;
+}
+
+.dimensionsHardCorded {
+    margin-left: 10px;
+}
+.dimensionsHardCorded p {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.775);
+}
+
+.labelText{
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.775);
+}
+
+.labelText input,  .priceLabelColor input{
+    border: none;
+    border-bottom: 2px solid cornflowerblue;
+    padding: 5px;
+    text-align: center;
+    outline: none;
+    font-weight: bold;
+}
+
+.labelText input:focus, .priceLabelColor input:focus{
+    outline: none;
+}
+
+
+.weddingCardsQuantity{
+    margin-top: 20px;
+}
+
+.priceLabelColor {
+    color: darkgreen;
+    font-weight: bold;
+}
+
+.cutPrice {
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.priceSection{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    min-width: 8rem;
+    margin: 10px 0px
+}
+
+.promoText{
+    color: rgb(14, 158, 14);
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.promotionPrice {
+    color: brown;
+}
+
+.ribbon_card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position:relative;
+    min-width: 20rem;
+    min-height: 6rem;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+}
+
+.ribbon_card span {
+    position:absolute;
+    top: -10px;
+    right: -10px;
+    // background-color: crimson;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.ribbon_card span::before {
+    width: 140%;
+    height: 12px;
+    transform: rotate(45deg) translateY(-10px);
+    background-color: cornflowerblue;
+    position: absolute;
+    content: "Promotion";
+    font-size: 0.7em;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.ribbon_card span::after {
+    height: 10px;
+    width: 10px;
+    background-color: rgb(57, 112, 213);
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 5px;
+    z-index: -1;
+    box-shadow: -64.5px -65px  rgb(57, 112, 213);;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 1.5em;
+    height: 6rem;
+}
+
+.regularFont{
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.bi-gift-fill {
+    color: white;
+    margin-right: 0.5em;
+}
+
+._btn-promo {
+    background-color: purple;
+    border: none;
+    color: white;
+    width: 100px;
+}
+
+._btn-promo-Container {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.submissionContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.AddToCart {
+    width: 200px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.933);
+    color: white;
+    margin-bottom: 5px;
+}
+
+.Customized {
+    width: 200px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.933);
+    color: white;
+    margin-bottom: 5px;
+}
+
+.order {
+   width: 200px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.933);
+    color: white;
+    margin-bottom: 5px; 
+}

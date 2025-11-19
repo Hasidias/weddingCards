@@ -5,6 +5,14 @@
 <div  class="foldArea">
     <app-fold-area></app-fold-area>
 </div>
-
+@if (navQuery === 'home' || navQuery === '') {
 <app-home-content></app-home-content>
+}
 
+@if (navQuery === 'about') {
+<app-about></app-about>
+}
+
+@if (navQuery === 'contact') {
+<app-contact></app-contact>
+}
