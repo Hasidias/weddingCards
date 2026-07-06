@@ -1,0 +1,241 @@
+<ng-template #addressModal></ng-template>
+<div class="container">
+    @for (order of orders; track $index) {
+        <div class="order">
+            <div class="_row">
+                <div class="vert">
+                    <div class="_row">
+                        <img [src]="order.imgURL" alt="">
+                        <div class="info">
+                            <p class="prodName">{{order.name}}</p>
+                            <p class="quantity">Quantity: {{order.quantity}}</p>
+                        </div>
+                    </div>
+                    @if (order.category == 'weddingCards' && order.isGiftBoxIncluded) {
+                        <div  class="_row">
+                            <img [src]="order.giftBox.designImageURL" alt="">
+                            <div class="info">
+                                <p class="prodName">{{order.giftBox.designName}}</p>
+                                <p class="quantity">Quantity: {{order.giftBox.quantity}}</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="price">
+                    <p class="priceValue" [class]="order.priceAfterPromotion > 0 ? 'cutPrice': ''">{{order.price | currency:'LKR ': 'symbol'}}</p>
+                    @if (order.priceAfterPromotion > 0 ){
+                        <p class="promoText">You saved {{(order.price - order.priceAfterPromotion)|currency:'LKR ': 'symbol'}}</p>
+                        <p class="promotionPrice">{{order.priceAfterPromotion | currency:'LKR ': 'symbol'}}</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    <div class="finalize">
+        <div class="totalAmount">
+            <p>Total value </p>
+            <button class="value">{{totalAmount | currency:'LKR ': 'symbol'}}</button>
+        </div>
+        <form #mainForm="ngForm">
+            <div class="MT" [class.errorAlert]="(mainForm.submitted && address.first_name == undefined)">
+                <p class="address">Delivery Address</p>
+                <div class="addressContainer">
+                    @if (address.first_name === undefined) {
+                        <div class="btnContainer">
+                            <button type="button" class="_btn" (click)="launchModel(false)"><i class="bi bi-truck"></i> Submit address</button>
+                        </div>
+                    } @else {
+                        <div class="shippingLabel">
+                            <p>{{address.first_name}} {{address.last_name}}</p>
+                            <p>{{address.line_1}}</p>
+                            <p>{{address.line_2}}</p>
+                            <p>{{address.city}}</p>
+                            <p>{{address.district}}, {{address.postal_code}}</p>
+                            <p>Phone 1: {{address.phoneNumbers1}}</p>
+                            <p>Phone 2: {{address.phoneNumbers2}}</p>
+                        </div>
+                    <div class="btnContainer">
+                            <button class="_btn" (click)="launchModel(true)">Edit address</button>
+                        </div> 
+                    }
+                </div>
+            </div>
+            <div class="paymentMethods">
+                <p class="paymentLabel bold"> Payment Method</p>
+                <div class="methods">
+                    <div class="method" [class.selectedMethod]="selectedPaymentMethod === 'online_payment'" (click)="selectedPaymentMethod = 'online_payment'">
+                        @if (selectedPaymentMethod === 'online_payment') {
+                            <div class="radioContainer">
+                                <div class="radio"></div>
+                            </div>
+                        }
+                        <i class="bi bi-credit-card-2-back"></i>
+                        <p >Online Payment</p>
+                    </div>
+                    <div class="method" [class.selectedMethod]="selectedPaymentMethod === 'bank_deposit'" (click)="selectedPaymentMethod = 'bank_deposit'">
+                        @if (selectedPaymentMethod === 'bank_deposit') {
+                            <div class="radioContainer">
+                                <div class="radio"></div>
+                            </div>
+                        }
+                        <i class="bi bi-bank"></i>
+                        <p>Bank Deposit</p>
+                    </div>
+                    <div class="method" [class.selectedMethod]="selectedPaymentMethod === 'cod'" (click)="selectedPaymentMethod = 'cod'">
+                        @if (selectedPaymentMethod === 'cod') {
+                            <div class="radioContainer">
+                                <div class="radio"></div>
+                            </div>
+                        }
+                        <i class="bi bi-cash-coin"></i>
+                        <p >Cash on Delivery</p>
+                    </div>
+                </div>
+                @if (selectedPaymentMethod == 'bank_deposit') {
+                    
+                        <p class="bold">Tranfer payment to one of these banks</p>
+                        <div class="banks">
+                            <div class="bank">
+                                <div class="bankSelection" (click)="selectBank('commercial')" [class.selectedBank]="selectedBank === 'commercial'">
+                                    @if (selectedBank === 'commercial') {
+                                        <div class="radioContainer">
+                                            <div class="radio"></div>
+                                        </div>
+                                    }
+                                    <img src="commercial.png" alt="">
+                                    <!-- <p class="bankName">Commercial Bank</p> -->
+                                </div>
+                                @if(selectedBank == 'commercial'){
+                                    <div class="details">
+                                        <p class="accountNumbers">8008345321</p>
+                                        <p class="bold">Dias P H H L</p>
+                                        <p>kahawaththa branch</p>
+                                    </div> 
+                                }   
+                            </div>
+                            <div class="bank">
+                                <div class="bankSelection" (click)="selectBank('boc')" [class.selectedBank]="selectedBank === 'boc'">
+                                    @if (selectedBank === 'boc') {
+                                        <div class="radioContainer">
+                                            <div class="radio"></div>
+                                        </div>
+                                    }
+                                    <img src="boc_1.png" alt="">
+                                    <!-- <p class="bankName">BOC Bank</p> -->
+                                </div>
+                                @if(selectedBank == 'boc'){
+                                    <div class="details">
+                                        <p class="accountNumbers">81376850</p>
+                                        <p class="bold">Karunathilaka T G N S</p>
+                                        <p>kahawaththa branch</p>
+                                    </div> 
+                                }   
+                            </div>
+                        </div>
+                    <div class="formContainer" #thumbContainer [class.errorAlert]="(mainForm.submitted && file == undefined || null)">
+                        <form class="bankProof" #form="ngForm">
+                            <label for="bankProof">
+                                @if (fileType == '') {
+                                    <!-- <i class="bi bi-cloud-upload"></i> -->
+                                    <img class="cloud-upload" src="upload.png" alt="">
+                                    <button type="button" (click)="launchSelection()" class="uploadBtn">Upload payment Proof</button>
+                                } 
+                            </label>
+                            <input id="bankProof" type="file" (change)="updateSelection($event)">
+                        </form>
+                        @if (fileType == 'image') {
+                            <button class="remove" (click)="resetImg()">X</button>
+                            <img class="previewImg" [src]=previewImg alt="">
+                            <p class="fileName">{{file.name}}</p>
+                        }
+                        @if (fileType == 'pdf') {
+                            <button class="remove" (click)="resetImg()">X</button>
+                            <img #pdfCanvas class="previewImg" [src]="pdfPreview" alt="">
+                            <p class="fileName">{{file.name}}</p>
+                        }
+                    </div>
+                }
+                @if (selectedPaymentMethod == 'cod') {
+                    <div class="MT">
+                        <p class="Notice">**Advance payment of 50% is required for CoD.</p>
+                        <div class="codBtnContainer _vert">
+                            <div class="_row">
+                                Amount to be tranferred to bank account:
+                                <button class="codBtn">{{totalAmount * cashOnDeliveryTranferRate | currency:'LKR ': 'symbol'}} </button>
+                            </div>
+                            <div class="_row">
+                                Amount to be paid after delivery:
+                                <button class="codBtn">{{totalAmount - (totalAmount * cashOnDeliveryTranferRate) | currency:'LKR ': 'symbol'}}</button>
+                            </div>
+                        </div>
+                        <p class="bold">Tranfer payment to one of these banks</p>
+                        <div class="banks">
+                            <div class="bank">
+                                <div class="bankSelection" (click)="selectBank('commercial')" [class.selectedBank]="selectedBank === 'commercial'">
+                                    @if (selectedBank === 'commercial') {
+                                        <div class="radioContainer">
+                                            <div class="radio"></div>
+                                        </div>
+                                    }
+                                    <img src="commercial.png" alt="">
+                                    <!-- <p class="bankName">Commercial Bank</p> -->
+                                </div>
+                                @if(selectedBank == 'commercial'){
+                                    <div class="details">
+                                        <p class="accountNumbers">8008345321</p>
+                                        <p class="bold">Dias P H H L</p>
+                                        <p>kahawaththa branch</p>
+                                    </div> 
+                                }   
+                            </div>
+                            <div class="bank">
+                                <div class="bankSelection" (click)="selectBank('boc')" [class.selectedBank]="selectedBank === 'boc'">
+                                    @if (selectedBank === 'boc') {
+                                        <div class="radioContainer">
+                                            <div class="radio"></div>
+                                        </div>
+                                    }
+                                    <img src="boc_1.png" alt="">
+                                    <!-- <p class="bankName">BOC Bank</p> -->
+                                </div>
+                                @if(selectedBank == 'boc'){
+                                    <div class="details">
+                                        <p class="accountNumbers">81376850</p>
+                                        <p class="bold">Karunathilaka T G N S</p>
+                                        <p>kahawaththa branch</p>
+                                    </div> 
+                                }   
+                            </div>
+                        </div>
+                        <div class="formContainer" [class.errorAlert]="(mainForm.submitted && file == undefined || null)">
+                            <form class="bankProof" #form="ngForm">
+                                <label for="bankProof">
+                                    @if (fileType == '' ) {
+                                        <!-- <i class="bi bi-cloud-upload"></i> -->
+                                        <img class="cloud-upload" src="upload.png" alt="">
+                                        <button type="button" (click)="launchSelection()" class="uploadBtn">Upload payment Proof</button>
+                                    }
+                                </label>
+                                <input id="bankProof" type="file" (change)="updateSelection($event)">
+                            </form>
+                            @if (fileType == 'image') {
+                                <button class="remove" (click)="resetImg()">X</button>
+                                <img class="previewImg" [src]="previewImg" alt="">
+                                <p class="fileName">{{file.name}}</p>
+                            }
+                            @if (fileType == 'pdf') {
+                                <button class="remove" (click)="resetImg()">X</button>
+                                <img class="previewImg" [src]="pdfPreview" alt="">
+                                <p class="fileName">{{file.name}}</p>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="buttonContainer">
+                <button type="submit" class="payButton" (click)="placeOrder()">Place Order</button>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="sideBar">
+        <ul>
+            <a routerLink="/admin" [queryParams]="{tab: ''}"><li [class.active]="activeTab == null || activeTab == ''"><i class="bi bi-columns-gap"></i>Overview</li></a>
+            <a routerLink="/admin" [queryParams]="{tab: 'orders'}"><li [class.active]="activeTab == 'orders'"><i class="bi bi-bag-check"></i>Orders</li></a>
+            <a routerLink="/admin" [queryParams]="{tab: 'customOrders'}"><li [class.active]="activeTab == 'customOrders'"><i class="bi bi-building-gear"></i>Custom orders</li></a>
+            <a routerLink="/admin" [queryParams]="{tab: 'createList'}"><li [class.active]="activeTab == 'createList'"><i class="bi bi-plus-circle-dotted"></i>Create a list</li></a>
+            <a routerLink="/admin" [queryParams]="{tab: 'currentList'}"><li [class.active]="activeTab == 'currentList'"><i class="bi bi-journals"></i>Current list</li></a>
+            <a routerLink="/admin" [queryParams]="{tab: 'users'}"><li [class.active]="activeTab == 'users'"><i class="bi bi-people"></i>Users</li></a>
+            <!-- <a routerLink="/admin" [queryParams]="{tab: ''}"><li [class.active]="activeTab == 'customOrders'"></li></a>
+            <a routerLink="/admin" [queryParams]="{tab: ''}"><li [class.active]="activeTab == 'customOrders'"></li></a> -->
+        </ul>
+    </div>
+    <div class="content">
+        @if (activeTab == 'createList') {
+            <app-new-item></app-new-item>
+        }
+        @if (activeTab == '' || activeTab == '') {
+            <app-overview></app-overview>
+        }
+        @if (activeTab == 'orders') {
+            <app-orders></app-orders>
+        }
+        @if (activeTab == 'customOrders') {
+            <app-custom-orders></app-custom-orders>
+        }
+        @if (activeTab == 'currentList') {
+            <app-current-list></app-current-list>
+        }
+        @if (activeTab == 'users') {
+            <app-users></app-users>
+        }
+        
+    </div>
+</div>

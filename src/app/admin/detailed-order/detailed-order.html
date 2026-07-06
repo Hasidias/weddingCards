@@ -1,0 +1,74 @@
+<div class="orderInfo">
+    <p>Order Id: {{order.orderId}}</p>
+    <p>Placed on: {{order.orderDate | date:'yyyy-MM-dd'}}</p>
+    <div class="indicatorContainer">
+        <p>{{order.status}}</p>
+        <div class="indicator" [style.backgroundColor]="ORDER_STATUS_COLORS[order.status]"></div>
+    </div>
+    
+</div>
+<div class="customer">
+ <div class="_row">
+    <img [src]="order.customer.photoURL" alt="">
+    <div>
+        <p>{{order?.customer?.displayName}}</p>
+        <p>{{order?.customer?.email}}</p>
+    </div>  
+ </div>
+</div>
+
+<div class="shippingLabel">
+    <div class="_row names">
+        {{order.delivery.shippingLabel.first_name}}
+        {{order.delivery.shippingLabel.last_name}}
+        <i class="bi" [class]="copiedValue == `${order.delivery.shippingLabel.first_name} ${order.delivery.shippingLabel.last_name}` ?'bi-check-all':'bi-copy'" (click)="copy(`${order.delivery.shippingLabel.first_name} ${order.delivery.shippingLabel.last_name}`)"></i>
+    </div>
+    <div class="_col">
+        @for(line of getShippingLines(order.delivery.shippingLabel); track $index) {
+          <span class="addrLine _row">{{line}} <i class="bi" [class]="copiedValue == line ?'bi-check-all':'bi-copy'" (click)="copy(line)"></i></span>
+        }
+        <!-- {{order.delivery.shippingLabel.line_1}}<br />
+        {{order.delivery.shippingLabel.line_2}}<br />
+        {{order.delivery.shippingLabel.ciry}}<br />
+        {{order.delivery.shippingLabel.district}}<br />
+        {{order.delivery.shippingLabel.phoneNumbers1}}<br />
+        {{order.delivery.shippingLabel.phoneNumbers2}} -->
+    </div>
+</div>
+
+<div class="tracking">
+    <p>Delivery State: {{order.delivery.state}}</p>
+    @if (order.delivery.carrier) {
+        <p>Carrier: {{order.delivery.carrier}}</p>
+        <p>Carrier: {{order.delivery.trackingNumber}}</p>
+    }
+</div>
+
+<div class="items">
+    @for (item of order?.items; track $index) {
+        <div class="itemCard">
+            <div class="_row">
+                <img [src]="item.imgURL" alt="">
+                <div class="details">
+                    <p class="title">{{item.name}}</p><br/>
+                    @for (attr of item.attributes; track $index) {
+                        {{attr}}: {{item[attr]}}
+                    }
+                    Quantity: {{item.quantity}}
+                </div>
+            </div>
+        
+            @if (item.isGiftBoxIncluded) {
+                <div class="_row">
+                    <img [src]="item.giftBox.designImageURL" alt="">
+                    <div class="details">
+                        <p class="title">{{item.giftBox.designName}}</p>
+                        <p>Paper Type: {{item.giftBox.paperType}}</p>
+                        <p>Price {{item.giftBox.price}}</p>
+                    </div>
+                </div>  
+            }
+        </div>
+    }
+    
+</div>

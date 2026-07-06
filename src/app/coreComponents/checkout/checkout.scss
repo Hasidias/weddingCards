@@ -1,0 +1,392 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-between;
+    position: relative;
+}
+
+._row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+._row img {
+    aspect-ratio: 16/9;
+    width: 150px;
+}
+
+.info{
+    margin-left: 20px;
+}
+
+.prodName{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.quantity {
+    font-size: 0.85em;
+}
+
+
+.price{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 6rem;
+}
+
+.cutPrice {
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.priceSection{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    min-width: 8rem;
+    margin: 10px 0px
+}
+
+.promoText{
+    color: rgb(14, 158, 14);
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.promotionPrice {
+    color: brown;
+}
+
+.order {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    width: 37rem;
+}
+
+.method {
+    height: 3rem;
+    width: 12.5rem;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    cursor: pointer;
+    position: relative;
+    margin: 5px 5px;
+}
+
+
+.selectedMethod {
+    box-shadow: 0px 0px 2px 1px rgba(100, 148, 237, 0.633);
+}
+
+.method .bi{
+    font-size: 1.5em;
+    color: cornflowerblue;
+    margin-right: 6px;
+}
+
+.radioContainer {
+    border: 1px solid cornflowerblue;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+}
+
+.radio{
+    background-color: cornflowerblue;
+    height: 12px;
+    width: 12px;
+    border-radius: 100%;
+}
+
+.bankProof {
+    display: flex;
+    flex-direction: column;
+}
+
+.bankProof label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.bankProof input{
+    display: none;
+}
+
+.previewImg{
+    height: auto;
+    width: 80%;
+}
+
+.finalize {
+    width: 27rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.totalAmount {
+    font-size: 1em;
+    font-weight: bold;
+    width: 100%;
+}
+
+.totalAmount .value {
+    font-size: larger;
+    padding: 10px;
+    width: 100%;
+    height: 35px;
+    // border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: blueviolet;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.totalAmount p {
+    margin-bottom: 10px;
+}
+
+.addressContainer {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.address {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1em;
+    margin-left: 0;
+}
+
+.shippingLabel {
+    border-radius: 5px;
+    line-height: 20px;
+    padding: 10px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.17);
+    margin: 5px 0px;
+}
+
+.btnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
+}
+
+.btnContainer button{
+    width: 50%;
+    padding: 5px;
+    height: 30px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: cornflowerblue;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: all 0.6s;
+}
+
+.btnContainer button:active {
+    transform: translateY(1px);
+}
+
+.methods {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.bold {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 10px 0px;
+}
+
+.banks{
+    display: flex;
+    justify-content: space-around;
+}
+
+.bank img{
+    height: 32px;
+    width: auto;
+    margin-bottom: 5px;
+}
+
+.bankSelection {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.123);
+    width: 10rem;
+    margin-bottom: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.selectedBank {
+    box-shadow: 0px 0px 2px 1px rgba(100, 148, 237, 0.633);
+}
+
+.details{
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.226);
+    line-height: 14px;
+}
+
+.cloud-upload {
+    height: 80px;
+    cursor: pointer;
+    transition: all 0.6ss;
+}
+
+.cloud-upload:active {
+    transform: translateY(2px);
+}
+
+.formContainer {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.177);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.uploadBtn {
+    padding: 3px 8px;
+    border: none;
+    background-color: cornflowerblue;
+    height: 30px;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.accountNumbers {
+    color: crimson;
+    font-weight: bold;
+}
+
+.remove {
+    padding: 2px;
+    background-color: crimson;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    height: 25px;
+    width: 25px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 5px;
+    transition: all 0.6s;
+}
+
+.remove:active {
+    transform: translateY(1px);
+}
+
+.fileName {
+    width: 14rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.payButton {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.6s;
+}
+
+.payButton:active {
+    transform: translateY(1px);
+}
+
+.Notice {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: crimson;
+}
+
+._vert {
+    display: flex;
+    flex-direction: column;
+}
+
+.codBtn {
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    margin-left: auto;
+    margin-right: 5px;
+    margin-bottom: 4px;
+    border: none;
+    border-radius: 2px;
+    background-color: blueviolet;
+    color: white;
+    font-weight: bold;
+}
+
+.errorAlert {
+    border: 1px solid red !important;
+    border-radius: 5px;
+}
+
+.MT {
+    margin-top: 5px;
+}

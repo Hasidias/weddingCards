@@ -1,0 +1,212 @@
+.order {
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    width: 45rem;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    position: relative;
+}
+
+._row {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+._vert {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.right {
+    width: 21rem;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.263);
+    height: 8rem;
+    display: flex;
+    justify-content: flex-start;
+    position: fixed;
+    left: auto;
+    right: 5px;
+    top: 5px;
+}
+
+._row img {
+    aspect-ratio: 16/9;
+    width: 150px;
+}
+
+.info{
+    margin-left: 20px;
+}
+
+.prodName{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.quantity {
+    font-size: 0.85em;
+}
+
+.price{
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    height: 6rem;
+}
+
+.cutPrice {
+    text-decoration: line-through;
+    margin-left: 10px;
+}
+
+.priceSection{
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.253);
+    min-width: 8rem;
+    margin: 10px 0px
+}
+
+.promoText{
+    color: rgb(14, 158, 14);
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+.promotionPrice {
+    color: brown;
+}
+
+.totalAmount {
+    font-size: 1em;
+    font-weight: bold;
+    width: 20rem;
+    left: auto;
+    right: 13px;
+    top: 10px;
+    position: fixed;
+}
+
+.totalAmount .value {
+    font-size: larger;
+    padding: 10px;
+    width: 100%;
+    height: 35px;
+    // border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: blueviolet;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.totalAmount .proceed {
+    font-size: larger;
+    padding: 10px;
+    width: 100%;
+    height: 35px;
+    // border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    background-color: cornflowerblue;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.6s;
+    font-size: 0.9em;
+}
+
+.proceed:active {
+    transform: translateY(1px);
+}
+.totalAmount p {
+    margin-bottom: 10px;
+}
+
+.bi-trash3-fill {
+    position: absolute;
+    left: auto;
+    right: 10px;
+    top: 10px;
+    font-size: 1em;
+    font-weight: bold;
+    color: crimson;
+    cursor: pointer;
+    transition: all 0.6s;
+    
+}
+
+.bi-trash3-fill:active {
+    transform: translateY(1px);
+}
+
+.quantityContainer {
+    display: flex;
+}
+
+.formContainer form input {
+    border: none;
+    border-bottom: 1px solid cornflowerblue;
+    width: 4rem;
+    text-align: center;
+    outline: none;
+}
+
+.bi-pencil-square {
+    cursor: pointer;
+    margin-left: 5px;
+    color: cornflowerblue;
+}
+
+.cancel {
+    background-color: crimson;
+    border-radius: 2px;
+    border: none;
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    margin-left: 3px;
+    color: white;
+    font-weight: bold;
+}
+
+.submit {
+    border: none;
+    border-radius: 2px;
+    height: 20px;
+    padding: auto 10px;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+    text-align: center;
+    width: 4rem;
+    margin-left: 5px;
+    transition: all 0.6s;
+}
+
+.submit:active {
+    transform: translateY(1px);
+}

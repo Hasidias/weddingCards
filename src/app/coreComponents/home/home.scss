@@ -1,0 +1,13 @@
+body {
+    margin: 0;
+    padding: 0
+}
+
+.navbar{
+    z-index: 1;
+    position: relative;
+}
+
+.foldArea{
+    z-index: -1;
+}

@@ -1,0 +1,140 @@
+<div class="container">
+    <div class="wrapper">
+            <div class="left">
+                <!-- <img src="https://i.ytimg.com/vi/HglTkx9CSIA/maxresdefault.jpg" alt=""> -->
+                 <img src="https://www.weddingforward.com/wp-content/uploads/2025/06/outdoor-wedding-photos-bride-and-groom-sitting-on-the-chapel-stairs-jackiesiggardphotovideo.jpg" alt="">
+            </div>
+            <div class="right">
+                
+                <div #dynamicContainer class="dynamic">
+                </div>
+                @if (Mode == 'register') {
+                    <h1>Create an account</h1>
+                    <div class="toggleRef">
+                        <p>Already have an account ? <button class="_btn" (click)="changeMode('login')">Sign in</button></p>
+                    </div>
+                    <form #form="ngForm" (ngSubmit)="register()">
+                    <div class="nameGroup">
+                        <input type="text" placeholder="First Name" name="first_name" required #firstName="ngModel" [(ngModel)]="registerInfo.first_name" [class]="firstName.hasError('required') && firstName.touched ? 'errorAlert':''">
+                        <input type="text" placeholder="Last Name" name="last_name" [(ngModel)]="registerInfo.last_name" required #lastName="ngModel" [class]="lastName.hasError('required') && lastName.touched ? 'errorAlert':''">
+                    </div>
+                    <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #email="ngModel" [(ngModel)]="registerInfo.email" [class]="(email.hasError('pattern') || email.hasError('required')) && email.touched ? 'errorAlert':''">
+                    <div class="passwordInput">
+                        <input [type]="hidePassword ? 'password': 'text'" placeholder="Password" name="password" required appPasswordValidator [(ngModel)]="registerInfo.password" #password="ngModel" [class]="password.hasError('passwordStrength') && password.touched ? 'errorAlert':''"><i class="bi" (click)="toggleShow()" [class]="hidePassword? 'bi-eye-fill':'bi-eye-slash-fill'"></i>
+                        @if (password.hasError('passwordStrength') && password.touched) {
+                            <div class="conditionContainer">
+                                <div class="conditions">
+                                    <div class="_row">
+                                        <p>Uppercase Letter</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasUpper ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Lowercase Letter</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasLower ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Number</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasNumber ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Special Character</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasSpecial ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p> 8<sup>+</sup> characters</p><i class="bi" [class]="password.errors?.['passwordStrength'].minLength ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="policyAcceptance">
+                        <input type="checkbox" required name="agreement" [(ngModel)]="registerInfo.agreement" #check="ngModel" [class]="check.hasError('required') && check.touched ? 'errorAlert':''">I agree to the <a href="">Terms & conditions.</a>
+                    </div>
+                    <div class="_btnContainer">
+                        <button class="_btn btn-submit" [disabled]="form.invalid">Create account</button>
+                    </div>
+                </form>
+                }
+                @if(Mode == 'login') {
+                    <h1>Sign in</h1>
+                    <div class="toggleRef">
+                        <p>New customer ? <button class="_btn" (click)="changeMode('register')">Register</button></p>
+                    </div>
+                    <form #form="ngForm" (ngSubmit)="login()">
+                    <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #email="ngModel" [(ngModel)]="loginInfo.email" [class]="(email.hasError('pattern') || email.hasError('required')) && email.touched ? 'errorAlert':''">
+                    <div class="passwordInput">
+                        <input [type]="hidePassword ? 'password': 'text'" placeholder="Password" name="password" required [(ngModel)]="loginInfo.password" #password="ngModel" [class]="password.hasError('required') && password.touched ? 'errorAlert':''"><i class="bi" (click)="toggleShow()" [class]="hidePassword? 'bi-eye-fill':'bi-eye-slash-fill'"></i>
+                    </div>
+                    <div class="reset">
+                        <p>Forgot password ? <button type="button" class="resetBtn" (click)="changeMode('forgotPassword')">Reset password</button></p>
+                    </div>
+                    <div class="_btnContainer">
+                        <button class="_btn btn-submit" [disabled]="form.invalid">Login account</button>
+                    </div>
+                </form>
+                }
+                @if(Mode == 'forgotPassword') {
+                    <h1>Verify your email</h1>
+                    <div class="toggleRef">
+                        <p>Return to sign in ? <button class="_btn" (click)="changeMode('login')">Sign in</button></p>
+                    </div>
+                    @if (!sentEmail) { 
+                        <form #form="ngForm" (ngSubmit)="sendEmail()">
+                            <input type="email" placeholder="Email" name="email" required pattern="[a-z0-9._%+\-]+@[a-z0-9.-]+\.[a-z]{2,4}$" #email="ngModel" [(ngModel)]="resetEmail" [class]="(email.hasError('pattern') || email.hasError('required')) && email.touched ? 'errorAlert':''">
+                            <div class="_btnContainer">
+                                <button type="submit" class="_btn btn-submit" [disabled]="form.invalid" (click)="sendEmail()">Send verification email</button>
+                            </div>
+                        </form>
+                    } 
+                    @if (sentEmail == true) {
+                        <div class="sent">
+                            <img src="check.png" alt=""><p>Email sent Successfully. Check your inbox.</p>
+                        </div>
+                    }
+                }
+                @if(Mode == 'reset') {
+                    <h1>Enter the new password</h1>
+                    <div class="toggleRef">
+                        <p>Return to sign in ? <button class="_btn" (click)="changeMode('login')">Sign in</button></p>
+                    </div>
+                    <form #form="ngForm" (ngSubmit)="resetPassword()">
+                    <div class="passwordInput">
+                        <input [type]="hidePassword ? 'password': 'text'" placeholder="New password" name="password" required appPasswordValidator [(ngModel)]="newPassword" #password="ngModel" [class]="password.hasError('passwordStrength') && password.touched ? 'errorAlert':''"><i class="bi" (click)="toggleShow()" [class]="hidePassword? 'bi-eye-fill':'bi-eye-slash-fill'"></i>
+                        @if (password.hasError('passwordStrength') && password.touched) {
+                            <div class="conditionContainer">
+                                <div class="conditions">
+                                    <div class="_row">
+                                        <p>Uppercase Letter</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasUpper ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Lowercase Letter</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasLower ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Number</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasNumber ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p>Special Character</p><i class="bi" [class]="password.errors?.['passwordStrength'].hasSpecial ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                    <div class="_row">
+                                        <p> 8<sup>+</sup> characters</p><i class="bi" [class]="password.errors?.['passwordStrength'].minLength ? 'bi-check':'bi-x'"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="_btnContainer">
+                        <button class="_btn btn-submit" [disabled]="form.invalid">Reset password</button>
+                    </div>
+                </form>
+                }
+                @if (Mode == 'login' || Mode == 'register') {
+                    <div class="thirdparty">
+                    <div class="thirdPartyHeading">
+                        <span class="spacer"></span>
+                        <p>Or login with </p>
+                        <span class="spacer"></span>
+                    </div>
+                    <div class="thirdPartyAuthenticators">
+                        <button type="button" class="google _btn" (click)="thirdpartyLogin('google')"><img src="/google.png" alt="">Google</button>
+                    </div>
+                    </div>
+                }
+            </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="modal">
+        <div class="_btnContainer">
+            <button class="_btn" (click)="closeModal()">X</button>
+        </div>
+        <div>
+            <h3>Your delivery address</h3>
+            <form #modalform="ngForm" (ngSubmit)="submitAddress(modalform)">
+                <input type="text" placeholder="First name" name="first_name" [(ngModel)]="address.first_name" #first_name="ngModel" required [class.errorAlert]="modalform.submitted && first_name.invalid">
+                <input type="text" placeholder="Last name" name="last_name" [(ngModel)]="address.last_name" #last_name="ngModel" required [class.errorAlert]="modalform.submitted && last_name.invalid">
+                <input type="text" placeholder="Address line 1" name="line_1" [(ngModel)]="address.line_1" #line_1="ngModel" required [class.errorAlert]="modalform.submitted && line_1.invalid">
+                <input type="text" placeholder="Address line 2" name="line_2" [(ngModel)]="address.line_2" #line_2="ngModel" required [class.errorAlert]="modalform.submitted && line_2.invalid">
+                <input type="text" placeholder="City" name="city" [(ngModel)]="address.city" #city="ngModel" required [class.errorAlert]="modalform.submitted && city.invalid">
+                <div class="customSelect" appDropDown>
+                    <button type="button" class="selectBtn" [class.errorAlert]="modalform.submitted && address.district == undefined">{{address.district ? address.district:'Your district...'}}<i class="bi bi-chevron-down"></i></button>
+                    <div class="dropDown">
+                        @for (district of districts; track $index) {
+                            <div class="option" (click)="selectDistrict(district)"><p>{{district}}</p></div>
+                        }
+                    </div>
+                </div>
+                <div class="half">
+                    <input type="text" placeholder="Postal code" name="postal_code" [(ngModel)]="address.postal_code" #postal_code="ngModel" required [class.errorAlert]="modalform.submitted && postal_code.invalid">
+                    <input type="text" placeholder="Phone number 1" name="phone_1" [(ngModel)]="address.phoneNumbers1" #phone_1="ngModel" required [class.errorAlert]="modalform.submitted && phone_1.invalid">
+                    <input type="text" placeholder="Phone number 2" name="phone_2" [(ngModel)]="address.phoneNumbers2" #phone_2="ngModel" required [class.errorAlert]="modalform.submitted && phone_2.invalid">
+                </div>
+                <div class="btnContainer">
+                    <button class="_btn-submit" type="submit">Save Address</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

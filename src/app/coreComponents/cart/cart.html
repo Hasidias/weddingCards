@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="left">
+        @for (order of orders; track $index) {
+        <div class="order">
+            <div class="_row">
+                <div class="vert">
+                    <i class="bi bi-trash3-fill" (click)="deleteItem(order.docId)"></i>
+                    <div class="_row">
+                        <img [src]="order.imgURL" alt="">
+                        <div class="info">
+                            <p class="prodName">{{order.name}}</p>
+                            <div class="quantityContainer">
+                                @if(ordersModified[$index].editMode) {
+                                    <div class="formContainer" >
+                                        <form #myform=ngForm (ngSubmit)="updateQuantity(myform, order.docId)">
+                                            <input type="number" name="quantity" [ngModel]="order.quantity" id="quantity_{{$index}}">
+                                            <button type="submit" class="submit" >Update</button>
+                                            <button type="button" class="cancel" (click)="toggleModification($index)">X</button>
+                                        </form>
+                                    </div>
+                                } @else {
+                                    <p class="quantity">Quantity: {{order.quantity}}</p>
+                                    <i class="bi bi-pencil-square" (click)="toggleModification($index)"></i>
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
+                    @if (order.category == 'weddingCards' && order.isGiftBoxIncluded) {
+                         <div  class="_row">
+                        <img [src]="order.giftBox.designImageURL" alt="">
+                        <div class="info">
+                            <p class="prodName">{{order.giftBox.designName}}</p>
+                            <div class="quantityContainer">
+                                @if(ordersModified[$index].giftBox.editMode) {
+                                    <div class="formContainer" >
+                                        <form #myform=ngForm (ngSubmit)="updateGiftBoxQuantity(myform, order.docId)">
+                                            <input type="number" name="quantity" [ngModel]="order.giftBox.quantity" id="GBQuantity_{{$index}}">
+                                            <button type="submit" class="submit" >Update</button>
+                                            <button type="button" class="cancel" (click)="toggleGBModification($index)">X</button>
+                                        </form>
+                                    </div>
+                                } @else {
+                                    <p class="quantity">Quantity: {{order.giftBox.quantity}}</p>
+                                    <i class="bi bi-pencil-square" (click)="toggleGBModification($index)"></i>
+                                }
+                            </div>
+                            
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="price">
+                    <p class="priceValue" [class]="order.priceAfterPromotion > 0 ? 'cutPrice': ''">{{order.price | currency:'LKR ': 'symbol'}}</p>
+                    @if (order.priceAfterPromotion > 0 ){
+                        <p class="promoText">You saved {{(order.price - order.priceAfterPromotion)|currency:'LKR ': 'symbol'}}</p>
+                        <p class="promotionPrice">{{order.priceAfterPromotion | currency:'LKR ': 'symbol'}}</p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    </div>
+    <div class="right">
+        @if (orders.length > 0) {
+            <div class="totalAmount">
+                <p>Total value </p>
+                <button class="value">{{totalAmount | currency:'LKR ': 'symbol'}}</button>
+                <button class="proceed" (click)="proceed()">Checkout</button>
+            </div>
+            
+        }
+    </div>
+</div>

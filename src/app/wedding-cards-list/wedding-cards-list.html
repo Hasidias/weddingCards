@@ -1,0 +1,7 @@
+@if (cards.length > 0) {
+    <div class="container"> 
+        @for (card of cards; track $index) {
+        <app-wedding-card [cardData]="card"></app-wedding-card>
+        }
+    </div>
+}

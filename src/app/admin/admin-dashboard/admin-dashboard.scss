@@ -1,0 +1,45 @@
+.container {
+    position: relative;
+    .content{
+        margin-left: 210px;
+    }
+}
+
+.sideBar {
+    width: 180px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.227);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    ul {
+        height: fit-content;
+        a {
+            text-decoration: none;
+        }
+        li {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.551);
+            transition: all 0.6s;
+            padding-left: 5px;
+            .bi {
+                margin-right: 5px;
+                font-weight: bold;
+            }
+        }
+        li:hover{
+            transform: translateX(2px);
+        }
+}
+}
+
+.active {
+    background-color: rgba(100, 148, 237, 0.31);
+    color: cornflowerblue !important;
+}
+

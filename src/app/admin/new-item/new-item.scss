@@ -1,0 +1,325 @@
+form {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    input {
+        margin-bottom: 10px;
+        height: 30px;
+        outline: none;
+        padding-left: 5px;
+        border-radius: 2px;
+        border: 1px solid black;
+        width: 300px
+    }
+    select {
+        margin-bottom: 10px;
+        height: 30px;
+    }
+    input:focus {
+        border: 1px solid cornflowerblue;
+    }
+}
+
+.long {
+    input {
+        width: 800px;
+    }
+}
+
+.attInputs{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.bi-x-square {
+    color: red;
+    margin-left: 2px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.inputWrap{
+    display: flex;
+    align-items: center;
+}
+
+.variance {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.258);
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+
+}
+
+.variance-x {
+    align-self: flex-end;
+}
+
+.imagesContainer{
+    margin-bottom: 10px;
+    display: flex;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.imgcontainer{
+    height: 200px;
+    aspect-ratio: 16/9;
+    width: fit-content;
+    position: relative;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.153);
+    margin-bottom: 10px;
+    img {
+        height: 200px;
+        aspect-ratio: 16/9;
+        border-radius: 5px;
+    }
+}
+
+.mainImg {
+   height: 200px;
+   aspect-ratio: 16/9;
+   border-radius: 5px; 
+}
+
+.bi-plus-circle-dotted {
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.secondaryTitle {
+    margin-bottom: 5px;
+}
+
+//  right images 
+
+.right {
+    // border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+    height: 12.5rem;
+    overflow: scroll;
+    margin-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rightImgContainer {
+    margin-left: 10px;
+    height: 80px;
+    aspect-ratio: 16/9;
+    position: relative;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.153);
+    img {
+     height: 80px;
+     aspect-ratio: 16/9;
+    }
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainImages {
+    display: none;
+}
+
+.hide{
+    display: none;
+}
+
+.bi-x-circle-fill {
+    color: purple;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+}
+
+.alignM {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.btnContainer{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    button {
+        padding: 5px 10px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: white;
+        cursor: pointer;
+    }
+    .selected {
+        background-color: cornflowerblue;
+        color: white;
+        border: none;
+    }
+}
+
+.addingBtn {
+    height: 25px;
+    width: 100px;
+    border-radius: 3px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.6s;
+    margin-bottom: 10px;
+}
+
+.addingBtn:active {
+    transform: translateY(1px);
+}
+
+.individualGB {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.153);
+    .size {
+        input {
+            width: 150px;
+            margin-right: 5px;
+        }
+    }
+    .pricingGB {
+        display: flex;
+        flex-direction: column;
+        input {
+            width: 200px;
+            margin-right: 5px;
+        }
+        .pricingWrap {
+            display: flex;
+            flex-direction: column;
+        }
+        .pricingInputs {
+            display: flex;
+            .bi-x-square {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.newSection {
+    margin-top: 50px;
+}
+
+.conditions {
+    display: flex;
+    vertical-align: center;
+    justify-content: center;
+    flex-direction: column;
+    input {
+        margin-right: 5px;
+        width: 200px;
+    }
+}
+
+.above {
+    display: flex;
+    vertical-align: center;
+    input {
+        margin-right: 5px;
+        width: 200px;
+    }
+}
+
+._row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    input {
+        margin-bottom: 0px;
+    }
+}
+
+.addBtnContainer {
+    .bi-plus-circle-dotted {
+        font-size: 1.5em;
+        transition: all 0.6s;
+    }
+
+    .bi-plus-circle-dotted:active {
+        transform: translateY(1px);
+    }
+}
+
+.promotion {
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0px 0px 2px 1px rgba(100, 148, 237, 0.373);
+    position: relative;
+    .bi-gift-fill {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        font-size: 1.5em;
+        color: purple;
+    }
+    .promoName {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: rgba(0, 0, 0, 0.715);
+    }
+}
+
+.remove {
+    button {
+        border: none;
+        border-radius: 5px;
+        height: 20px;
+        width: 60px;
+        color: white;
+        font-size: 0.7em;
+        font-weight: bold;
+        background-color: brown;
+        cursor: pointer;
+        transition: all 0.6s;
+    }
+
+    button:active {
+        transform: translateY(1px);
+    }
+}
+
+._label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.availability {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    input {
+        margin-right: 5px;
+        width: auto;
+        margin-bottom: 0px;
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,31 @@
+@if(!detailedView) { 
+<table>
+    <thead>
+    <tr>
+        <th>Order Id</th>
+        <th>Date</th>
+        <th>Customer Name</th>
+        <th>Value</th>
+        <th>Status</th>
+        <th>View Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (order of orders; let i = $index; track i;){
+        <tr [class.ashBackground]="i % 2 == 1"> 
+        <td>{{ order.docId }}</td>
+        <td>{{ order.orderDate | date:'yyyy-MM-dd' }}</td>
+        <td class="customer"><img [src]="order?.customer?.photoURL" alt="">{{ order?.customer?.displayName }}</td>
+        <td>{{ order.totalAmount | currency: 'LKR '}}</td>
+        <td>{{ order.status }}</td>
+        <td class="viewOrder"><button (click)="selectOrder(order)">View order</button></td>
+        </tr>
+    }
+    </tbody>
+</table>
+}
+
+
+@if(detailedView) {
+    <app-detailed-order [order]="selectedOrder"></app-detailed-order>
+}

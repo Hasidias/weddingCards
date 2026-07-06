@@ -1,0 +1,238 @@
+<form [formGroup]="listingForm">
+    <p class="secondaryTitle">Add carousal images</p>
+    <div cdkDropList
+    cdkDropListOrientation="mixed" 
+    [cdkDropListData]="images.controls"
+    (cdkDropListDropped)="drop($event)"
+    class="imagesContainer" >
+        <div cdkDrag cdkDragDisabled="true" class="left imgcontainer">
+            @if(images.controls.length > 0){
+                <i class="bi bi-x-circle-fill" (click)="removeImage(0)"></i>
+                <img class="mainImg"  [src]="images.controls.at(0)?.value.dataUrl" alt="">
+            } @else {
+                <i class="bi bi-plus-circle-dotted" (click)="launchMainSelection()"></i>
+            }
+        </div>
+        <div class="right">
+            @for (img of images.controls.slice(1); let i = $index; track img) {
+                <div cdkDrag class="rightImgContainer">
+                    <!-- <i class="bi bi-plus-circle-dotted"></i> -->
+                     <i class="bi bi-x-circle-fill" (click)="removeImage(i+1)"></i>
+                    <img [src]="img.value.dataUrl" alt="">
+                </div>
+            }
+            <div class="rightImgContainer">
+                 <i class="bi bi-plus-circle-dotted" (click)="launchMainSelection()"></i>
+            </div>
+        </div>
+    </div>
+    <input (change)="onFilesSelected($event)" type="file" placeholder="Image URL" multiple id="mainImages">
+    <input type="text" formControlName="id" placeholder="Product Id" readonly>
+    <span class="availability">
+        <input type="checkbox" formControlName="availability">
+        <label for="availability">Availability</label>
+    </span>
+    <div class="long">
+        <input  type="text" formControlName="name" placeholder="Name">
+    </div>
+    <div formArrayName="attributes">
+        @for ( attr of attributes.controls; track attr) {
+            <div class="attInputs">
+                <div class="inputWrap">
+                    <input type="text" placeholder="Attribute" [formControlName]="$index">
+                    @if ($index >= 1) {
+                        <i class="bi bi-x-square" (click)="removeAttribute($index)"></i>
+                    }
+                </div>
+                @if (attributes.controls.length -1 == $index) {
+                    <button class="addingBtn" type="button" (click)="addAttribute()">Add attribute</button>
+                }
+            </div>   
+        }
+    </div>
+
+    <div formArrayName="paperTypes">
+        @for(pType of paperTypes.controls; track pType; let pIndex = $index) {
+            <div class="paperTypeInput">
+                <input type="text" placeholder="Paper Type" [formControlName]="pIndex">
+                @if (pIndex >=1) {
+                    <i class="bi bi-x-square" (click)="removePaperType(pIndex)"></i>
+                }
+            </div>
+             @if (paperTypes.controls.length -1 == pIndex) {
+                <button class="addingBtn" type="button" (click)="addPaperType()">Add paper Type</button>
+            }
+
+        }
+    </div>
+    
+    <p class="_label">Product description</p>
+    <quill-editor
+        formControlName="description"
+        [modules]="quillModules"
+        [styles]="{ height: '300px' }">
+    </quill-editor>
+
+
+    <!-- variances  -->
+     <h3 class="newSection">Variances</h3>
+     <div formArrayName="variances">
+        @for (vari of variances.controls; track vari; let i = $index) {
+            <div class="variance" [formGroupName]="$index">
+                @if (i > 0) {
+                    <i class="bi bi-x-square variance-x" (click)="removeVariance(i)"></i>
+                }
+                <p>Add variance Image</p>
+                <div class="alignM">
+                    <div  class="imgcontainer">
+                        @if(vari.get('imageURL')?.value?.dataUrl){
+                            <i class="bi bi-x-circle-fill" (click)="removeImageURL(i)"></i>
+                            <img  [src]="vari.get('imageURL')?.value.dataUrl" alt="">
+                        } @else {
+                            <i class="bi bi-plus-circle-dotted" (click)="launchImageURLSelection(i)"></i>
+                        }
+                    </div>
+                </div>
+                <input class="hide" type="file" (change)="varianceImageSelected($event, i, false)" placeholder="imageURL" id="imageURL{{i}}">
+                <p>Add Image with gift box.</p>
+                <div class="alignM">
+                    <div  class="imgcontainer">
+                        @if(vari.get('imageURL_GB')?.value?.dataUrl){
+                            <i class="bi bi-x-circle-fill" (click)="removeImageURLGB(i)"></i>
+                            <img  [src]="vari.get('imageURL_GB')?.value.dataUrl" alt="">
+                        } @else {
+                            <i class="bi bi-plus-circle-dotted" (click)="launchImageURLGBSelection(i)"></i>
+                        }
+                    </div>
+                </div>
+                <input class="hide" type="file" (change)="varianceImageSelected($event, i, true)" placeholder="imageURL_GB" id="imageURL_GB{{i}}">
+                <input type="text" formControlName="color" placeholder="color">
+                <input type="text" formControlName="colorHexcode" placeholder="colorHexcode">
+                <!-- <input type="text" formControlName="price" placeholder="price">
+                <input type="text" formControlName="paper" placeholder="paper"> -->
+                <div formGroupName="variancePrice">
+                    @for( key of objectKeys(variancePrice(i).controls); track key) {
+                        <div [class.hide]="key.length == 0">
+                            {{key+' paper price'}} : <input type="text" [formControlName]="key" placeholder="{{key}} paper price">
+                        </div>
+                    }
+                </div>
+                <div formGroupName="varianceQuantity">
+                    @for( key of objectKeys(varianceQuantity(i).controls); track key) {
+                        <div [class.hide]="key.length == 0">
+                            {{key+' paper quantity'}} : <input type="text" [formControlName]="key" placeholder="{{key}} paper Quantity">
+                        </div>
+                    }
+                </div>
+                <p>Gift box info</p>
+                <div class="giftBoxContainer" formArrayName="giftBoxM">
+                    @for(gb of giftBoxMAt($index).controls; track gb; let j = $index) {
+                        <p class="newSection">Gift Box {{j + 1}}</p>
+                        <div class="individualGB" [formGroupName]="$index">
+                            <div class="alignM">
+                                <div  class="imgcontainer">
+                                    @if(gb.get('designImageURL')?.value?.dataUrl){
+                                        <i class="bi bi-x-circle-fill" (click)="removeGBDesignImg(i, j)"></i>
+                                        <img  [src]="gb.get('designImageURL')?.value.dataUrl" alt="">
+                                    } @else {
+                                        <i class="bi bi-plus-circle-dotted" (click)="launchGBDesignSelection(i, j)"></i>
+                                    }
+                                </div>
+                            </div>
+                            <input class="hide" (change)="gbDesignSelected($event,i, j)" type="file" placeholder="Design image url" id="gbDesign_{{i}}_{{j}}">
+                            <input type="text" formControlName="designName" placeholder="designName">
+                            <div class="size" formGroupName="size">
+                                <input type="text" formControlName="height" placeholder="height">
+                                <input type="text" formControlName="length" placeholder="length">
+                                <input type="text" formControlName="width" placeholder="width">
+                            </div>
+                            <div class="pricingGB" formArrayName="pricing">
+                                <div class="pricingWrap">
+                                     @for(pr of pricing(i, j).controls; let prIndex = $index; track pr) {
+                                        <div class="pricingInputs" [formGroupName]="prIndex" >
+                                            <input type="text" formControlName="paperType" placeholder="Paper type">
+                                            <input type="text" formControlName="price" placeholder="Price">
+                                            <input type="text" formControlName="quantity" placeholder="Quantity">
+                                            @if (prIndex >= 1) {
+                                                <i class="bi bi-x-square" (click)="removePricing(i,j,prIndex)"></i>
+                                            }
+                                                    <!-- <button class="addingBtn" type="button" (click)="addPricing(i,j)">Add another</button> -->
+                                            @if (pricing(i, j).controls.length -1 == prIndex) {
+                                            <div class="addBtnContainer">
+                                                <!-- <button (click)="addCondition(k)">Add condition</button> -->
+                                                <i class="bi bi-plus-circle-dotted" (click)="addPricing(i,j)"></i>
+                                            </div>
+                                            }
+                                        </div>  
+                                }
+                                
+                                </div>
+                               
+                            </div>
+                        </div>  
+                    }
+                    <div class="addGb">
+                        <button class="addingBtn" (click)="addGiftBoxM(i)">+ new Giftbox</button>
+                    </div>
+                </div>
+            </div>
+            @if (variances.controls.length -1 == i) {
+                <div class="addVariance">
+                    <button class="addingBtn" type="button" (click)="addVariance()">Add variance</button>
+                </div>
+            }
+        }
+     </div>
+     <h3 class="newSection">Promotions</h3>
+     <!-- promotions -->
+      <div class="btnContainer">
+        <button type="button" [class.selected]="valueBasedAdded" (click)="togglePromotion('value_based')">Value Based</button>
+        <button type="button" [class.selected]="quantityBasedAdded" (click)="togglePromotion('quantity_based')">Quantity Based</button>
+      </div>
+      <div formArrayName="promotions">
+        @for (prom of promotions.controls; let k = $index; track k) {
+            <div class="promotion" [formGroupName]="k">
+                <i class="bi bi-gift-fill"></i>
+                <p class="promoName">Promotion: {{prom.get('type')?.value == 'value_based'? 'Value based':'Quantity based'}}</p>
+                <div class="conditions" formArrayName="conditions">
+                    @for (condition of conditionsAt(k).controls; let conditionIndex = $index; track condition){
+                        <div class="_row">
+                            <div [formGroupName]="conditionIndex">
+                                <input type="number" formControlName="lowerLimit" placeholder="Lower limit">
+                                <input type="number" formControlName="upperLimit" placeholder="Upper limit">
+                                <input type="number" formControlName="discount" placeholder="Discount">
+                                @if (conditionIndex >= 0) {
+                                    <i class="bi bi-x-square" (click)="removecondition(k,conditionIndex)"></i>
+                                }
+                            </div>
+                        
+                            @if (conditionsAt(k).controls.length -1 == conditionIndex) {
+                                <div class="addBtnContainer">
+                                    <!-- <button (click)="addCondition(k)">Add condition</button> -->
+                                    <i class="bi bi-plus-circle-dotted" (click)="addCondition(k)"></i>
+                                </div>
+                            } 
+                        </div>
+                        
+                    }
+                    @if (conditionsAt(k).controls.length == 0) {
+                                <div class="addBtnContainer">
+                                    <!-- <button (click)="addCondition(k)">Add condition</button> -->
+                                    <i class="bi bi-plus-circle-dotted" (click)="addCondition(k)"></i>
+                                </div>
+                    } 
+                </div>
+                <div class="above" formGroupName="above">
+                    <input type="number" formControlName="finalLimit" placeholder="Final limit">
+                    <input type="number" formControlName="discount" placeholder="Discount above final limit">
+                </div>
+                <div class="remove">
+                    <button (click)="removePromotion(k)">Remove</button>
+                </div>
+            </div> 
+        }
+     </div>
+     <div class="btnContainer">
+        <button type="submit" (click)="saveProduct()">Submit Product</button>
+     </div>
+</form>
